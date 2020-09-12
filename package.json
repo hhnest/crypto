@@ -1,9 +1,10 @@
 {
   "name": "@hhnest/crypto",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Crypto module for Nest - modern, fast, powerful node.js web framework (@hhnest)",
   "author": "Francois Achache",
   "private": false,
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

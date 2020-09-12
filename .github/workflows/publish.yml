@@ -15,5 +15,5 @@ jobs:
     - uses: actions/setup-node@v1.4.3
     - run: npm install --production
     - run: npm build
-    - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+    - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
     - run: npm publish
