@@ -1,0 +1,20 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'tag name'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.HHFRANCOIS }}
+      - uses: actions/setup-node@v1.4.3
+      - run: git push --delete origin ${{ github.event.inputs.tag }}
+      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      - run: npm unpublish @$GITHUB_REPOSITORY@${{ github.event.inputs.tag }}
