@@ -1,4 +1,4 @@
-name: Publish
+name: Unpublish
 
 on:
   workflow_dispatch:
