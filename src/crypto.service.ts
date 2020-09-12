@@ -9,9 +9,9 @@ const ALGORITHM: string = 'aes-192-cbc';
 const PREFIX: string = 'ENCRYPTED_';
 
 @Injectable()
-export class CipherService {
+export class CryptoService {
 
-  constructor(@Inject('CIPHER_SECRET') private readonly secret: string) {
+  constructor(@Inject('HHNESTJS_CRYPTO_SECRET') private readonly secret: string) {
   }
 
   encryptString(decrypted: string): Observable<string> {

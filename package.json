@@ -1,7 +1,7 @@
 {
-  "name": "@hhnestjs/cipher",
+  "name": "@hhnest/crypto",
   "version": "1.0.0",
-  "description": "Nest - modern, fast, powerful node.js web framework (@cipher)",
+  "description": "Crypto module for Nest - modern, fast, powerful node.js web framework (@hhnest)",
   "author": "Francois Achache",
   "private": false,
   "license": "MIT",
@@ -19,7 +19,6 @@
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
-    "@nestjs/platform-express": "^7.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"

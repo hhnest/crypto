@@ -1,0 +1,13 @@
+name: Tag
+
+on:
+  release:
+
+jobs:
+  build_tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.3
+      - run: npm version patch -m "release from $GITHUB_RUN_NUMBER"
+      - run: git push --follow-tags
