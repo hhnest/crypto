@@ -1,4 +1,5 @@
-/githup
+/.github
+/node_modules
 /src
 /test
 .eslintrc.js
