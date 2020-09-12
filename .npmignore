@@ -1,5 +1,5 @@
 /.github
-/node_modules
+/dist
 /src
 /test
 .eslintrc.js

@@ -5,8 +5,8 @@ import {bindCallback, fromEvent, Observable, of, race, throwError} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import * as stream from 'stream';
 
-const ALGORITHM: string = 'aes-192-cbc';
-const PREFIX: string = 'ENCRYPTED_';
+const ALGORITHM = 'aes-192-cbc';
+const PREFIX = 'ENCRYPTED_';
 
 @Injectable()
 export class CryptoService {
@@ -31,7 +31,7 @@ export class CryptoService {
   }
 
   decryptString(encrypted: string): Observable<string> {
-    const reg: RegExp = new RegExp(`^${PREFIX}`);
+    const reg = new RegExp(`^${PREFIX}`);
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
       map((key: Buffer) => crypto.createDecipheriv(ALGORITHM, key, iv)),
@@ -47,7 +47,7 @@ export class CryptoService {
     );
   }
 
-  private cipherString(cipher: stream.Transform, text: string, fromEncode: BufferEncoding, toEncode: BufferEncoding, prefix: string = '') {
+  private cipherString(cipher: stream.Transform, text: string, fromEncode: BufferEncoding, toEncode: BufferEncoding, prefix = '') {
     let result = prefix;
     fromEvent(cipher, 'readable').subscribe(() => {
       let chunk: Buffer;
