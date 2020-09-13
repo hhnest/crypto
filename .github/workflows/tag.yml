@@ -13,5 +13,5 @@ jobs:
       - uses: actions/setup-node@v1.4.3
       - run: git config --global user.name ${{ github.actor }}
       - run: git config --global user.email ${{ github.actor }}@users.noreply.github.com
-      - run: npm version patch -m "release from $GITHUB_RUN_NUMBER"
+      - run: npm version patch -m "release from ${{ github.run_number }}"
       - run: git push --follow-tags
