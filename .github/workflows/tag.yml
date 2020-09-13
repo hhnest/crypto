@@ -11,7 +11,7 @@ jobs:
         with:
           token: ${{ secrets.HHFRANCOIS }}
       - uses: actions/setup-node@v1.4.3
-      - run: git config --global user.name "$GITHUB_ACTOR"
-      - run: git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - run: git config --global user.name "${{ GITHUB_ACTOR }}"
+      - run: git config --global user.email "${{ GITHUB_ACTOR }}@users.noreply.github.com"
       - run: npm version patch -m "release from $GITHUB_RUN_NUMBER"
       - run: git push --follow-tags
