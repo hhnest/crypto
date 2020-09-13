@@ -17,7 +17,7 @@ jobs:
     - uses: actions/setup-node@v1.4.3
     - run: npm install
     - run: npm run test:cov
-    - uses: "Atrox/codecov-action@v0.1.2"
+    - uses: Atrox/codecov-action
       secrets: [${{ secrets.CODECOV_TOKEN }}]
   build:
     name: Build
