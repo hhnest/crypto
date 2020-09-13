@@ -8,13 +8,17 @@ on:
         required: true
 
 jobs:
-  build:
+  remove_tag:
+    name: Remove git tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.HHFRANCOIS }}
-      - uses: actions/setup-node@v1.4.3
       - run: git push --delete origin ${{ github.event.inputs.tag }}
+  unpublish:
+    name: Unpublish npm package
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - run: npm unpublish @$GITHUB_REPOSITORY@${{ github.event.inputs.tag }}
