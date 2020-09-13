@@ -1,6 +1,6 @@
 {
   "name": "@hhnest/crypto",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Crypto module for Nest - modern, fast, powerful node.js web framework (@hhnest)",
   "author": "Francois Achache",
   "repository": {
