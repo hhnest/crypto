@@ -2,7 +2,7 @@ import {Inject, Injectable} from '@nestjs/common';
 import * as crypto from 'crypto';
 import {BinaryLike, ScryptOptions} from 'crypto';
 import {bindCallback, fromEvent, Observable, of, race, throwError} from 'rxjs';
-import {map, mergeMap} from 'rxjs/operators';
+import {first, map, mergeMap} from 'rxjs/operators';
 import * as stream from 'stream';
 
 const PREFIX = 'ENCRYPTED_';
@@ -76,7 +76,7 @@ export class CryptoService {
     ));
     cipher.write(text, fromEncode);
     cipher.end();
-    return obs$;
+    return obs$.pipe(first());
   }
 
   private cipherStream(cipher: stream.Transform, input: NodeJS.ReadableStream, output: NodeJS.WritableStream) {
@@ -86,7 +86,7 @@ export class CryptoService {
       mergeMap((error: Error) => throwError(error))
     ));
     input.pipe(cipher).pipe(output);
-    return obs$;
+    return obs$.pipe(first());
   }
 
   private getKey(): Observable<Buffer> {
