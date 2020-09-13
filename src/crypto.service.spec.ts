@@ -74,6 +74,14 @@ describe('CryptoService', () => {
     });
   });
 
+  describe('getCurrentAlgorithm', () => {
+    it('should return current algorithm', (done) => {
+      const result = cryptoService.getCurrentAlgorithm();
+      expect(result).toEqual('aes-192-cbc');
+      done();
+    });
+  });
+
   describe('isAlgorithmSupported', () => {
     it(`should return as 'aes-192-cbc' is supported`, (done) => {
       const result = cryptoService.isAlgorithmSupported('aes-192-cbc');

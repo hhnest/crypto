@@ -16,6 +16,10 @@ export class CryptoService {
   ) {
   }
 
+  getCurrentAlgorithm(): string {
+    return this.ALGORITHM;
+  }
+
   getAlgorithmsSupported(): string[] {
     return crypto.getCiphers();
   }
