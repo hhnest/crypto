@@ -14,7 +14,7 @@
     "nestjs",
     "crypto"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

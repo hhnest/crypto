@@ -13,8 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1.4.3
-    - run: rm .gitignore
     - run: npm install --production
-    - run: npm build
+    - run: npm run build
     - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-    - run: npm publish
+    - run: cp package.json ./dist
+    - run: cp README.md ./dist
+    - run: npm publish ./dist
