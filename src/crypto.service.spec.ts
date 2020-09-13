@@ -65,4 +65,25 @@ describe('CryptoService', () => {
       });
     });
   });
+
+  describe('getAlgorithmsSupported', () => {
+    it('should return algorithms supported', (done) => {
+      const result = cryptoService.getAlgorithmsSupported();
+      expect(result).toContain('aes-192-cbc');
+      done();
+    });
+  });
+
+  describe('isAlgorithmSupported', () => {
+    it(`should return as 'aes-192-cbc' is supported`, (done) => {
+      const result = cryptoService.isAlgorithmSupported('aes-192-cbc');
+      expect(result).toBeTruthy();
+      done();
+    });
+    it(`should return as 'foo' is not supported`, (done) => {
+      const result = cryptoService.isAlgorithmSupported('foo');
+      expect(result).toBeFalsy();
+      done();
+    });
+  });
 });

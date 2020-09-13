@@ -16,6 +16,14 @@ export class CryptoService {
   ) {
   }
 
+  getAlgorithmsSupported(): string[] {
+    return crypto.getCiphers();
+  }
+
+  isAlgorithmSupported(algorithm: string): boolean {
+    return crypto.getCiphers().includes(algorithm);
+  }
+
   encryptString(decrypted: string): Observable<string> {
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
@@ -82,10 +90,5 @@ export class CryptoService {
       mergeMap(([error, buffer]: [Error, Buffer]) => !!error ? throwError(error) : of(buffer)),
     );
   }
-
-  isAlgorithmSupported(algorithm: string) {
-    return crypto.getCiphers().includes(algorithm);
-  }
-
 }
 
