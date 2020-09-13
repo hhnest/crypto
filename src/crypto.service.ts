@@ -20,11 +20,11 @@ export class CryptoService {
     return this.ALGORITHM;
   }
 
-  getAlgorithmsSupported(): string[] {
+  getSupportedAlgorithms(): string[] {
     return crypto.getCiphers();
   }
 
-  isAlgorithmSupported(algorithm: string): boolean {
+  isSupportedAlgorithm(algorithm: string): boolean {
     return crypto.getCiphers().includes(algorithm);
   }
 

@@ -13,9 +13,8 @@ export class CryptoModule {
   public static forRoot(secret: string, options: {algorithm: string} = {algorithm: DEFAULT_ALGORITHM}): DynamicModule {
     const supported = crypto.getCiphers();
     if (!supported.includes(options.algorithm)) {
-      const error = `Algorithm '${options.algorithm}' not supported`;
-      this.logger.error(error)
-      this.logger.error(`Supported algorithm : ${supported}`)
+      this.logger.error(`Algorithm '${options.algorithm}' is not supported`)
+      this.logger.error(`Supported algorithms : ${supported}`)
     }
     if (!options) {
       options = {algorithm: DEFAULT_ALGORITHM};

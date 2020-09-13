@@ -68,7 +68,7 @@ describe('CryptoService', () => {
 
   describe('getAlgorithmsSupported', () => {
     it('should return algorithms supported', (done) => {
-      const result = cryptoService.getAlgorithmsSupported();
+      const result = cryptoService.getSupportedAlgorithms();
       expect(result).toContain('aes-192-cbc');
       done();
     });
@@ -84,12 +84,12 @@ describe('CryptoService', () => {
 
   describe('isAlgorithmSupported', () => {
     it(`should return as 'aes-192-cbc' is supported`, (done) => {
-      const result = cryptoService.isAlgorithmSupported('aes-192-cbc');
+      const result = cryptoService.isSupportedAlgorithm('aes-192-cbc');
       expect(result).toBeTruthy();
       done();
     });
     it(`should return as 'foo' is not supported`, (done) => {
-      const result = cryptoService.isAlgorithmSupported('foo');
+      const result = cryptoService.isSupportedAlgorithm('foo');
       expect(result).toBeFalsy();
       done();
     });

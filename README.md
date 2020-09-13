@@ -10,14 +10,14 @@
 
 A crypto module for [Nest](https://github.com/nestjs/nest).
 
-Use standard nodejs crypto module
+Wrap standard nodejs crypto api with [Rxjs](https://github.com/ReactiveX/RxJS)
 
 DEFAULT ALGORITHM : 'aes-192-cbc'
 
 ## Installation
 
 ```bash
-$ npm install @hhnest/crypto
+$ npm install @hhnest/crypto --save
 ```
 
 ## Import module in your the app
@@ -54,30 +54,81 @@ export class MyService {
     private readonly cryptoService: CryptoService
   ) {
   }
-...
+  encryptPassword(password: string): Observable<string> {
+    return cryptoService.encryptString(password);
+  }
+  ...
+}
 ```
 
 ## API
 
-### encryptString
-```typescript
-  encryptString(decrypted: string): Observable<string>;
-```
+### cryptoService.encryptString
 
-### encryptStream
 ```typescript
-  encryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void>;
+  cryptoService.encryptString(decrypted: string): Observable<string>;
 ```
+Encrypt string and return it.  
+The encrypted string will be prefixed by ENCRYPTED_   
 
-### decryptString
-```typescript
-  decryptString(encrypted: string): Observable<string>;
-```
+---
 
-### decryptStream
+### cryptoService.encryptStream
+
 ```typescript
-  decryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void>;
+  cryptoService.encryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void>;
 ```
+Encrypt input stream and write encrypted result in output stream  
+The result will not be prefixed
+
+---
+
+### cryptoService.decryptString
+
+```typescript
+  cryptoService.decryptString(encrypted: string): Observable<string>;
+```
+Decrypt string and return it.  
+The encrypted string should be prefixed by ENCRYPTED_   
+
+---
+
+### cryptoService.decryptStream
+
+```typescript
+  cryptoService.decryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void>;
+```
+Decrypt input stream and write decrypted result in output stream  
+
+---
+
+### cryptoService.getCurrentAlgorithm
+
+```typescript
+  cryptoService.getCurrentAlgorithm(): string;
+```
+Return the current algorithm as defined in module declaration
+Default value is 'aes-192-cbc'
+
+---
+
+### cryptoService.getSupportedAlgorithms
+
+```typescript
+  cryptoService.getSupportedAlgorithms(): string[];
+```
+Return supported algorithms
+
+---
+
+### cryptoService.isSupportedAlgorithm
+
+```typescript
+  cryptoService.isSupportedAlgorithm(algorithm: string): boolean;
+```
+Return if an algorithm is supported
+
+---
 
 ## License
 
