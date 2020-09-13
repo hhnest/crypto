@@ -2,6 +2,8 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
+# @hhnest/crypto 
+
 ![Build](https://github.com/hhnest/crypto/workflows/Build/badge.svg)
 
 ## Description
@@ -10,7 +12,7 @@ A crypto module for [Nest](https://github.com/nestjs/nest).
 
 Use standard nodejs crypto module
 
-ALGORITHM : 'aes-192-cbc'
+DEFAULT ALGORITHM : 'aes-192-cbc'
 
 ## Installation
 
@@ -27,6 +29,8 @@ import {CryptoModule} from '@hhnest/crypto';
   imports: [
     HttpModule,
     CryptoModule.forRoot(environment.secret),
+// Or
+    CryptoModule.forRoot(environment.secret, {algorithm: 'aes-192-cbc'}),
     ...
  ],
   controllers: [...],

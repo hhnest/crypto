@@ -5,19 +5,21 @@ import {bindCallback, fromEvent, Observable, of, race, throwError} from 'rxjs';
 import {map, mergeMap} from 'rxjs/operators';
 import * as stream from 'stream';
 
-const ALGORITHM = 'aes-192-cbc';
 const PREFIX = 'ENCRYPTED_';
 
 @Injectable()
 export class CryptoService {
 
-  constructor(@Inject('HHNESTJS_CRYPTO_SECRET') private readonly secret: string) {
+  constructor(
+    @Inject('HHNEST_CRYPTO_SECRET') private readonly SECRET: string,
+    @Inject('HHNEST_CRYPTO_ALGORITHM') private readonly ALGORITHM: string
+  ) {
   }
 
   encryptString(decrypted: string): Observable<string> {
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
-      map((key: Buffer) => crypto.createCipheriv(ALGORITHM, key, iv)),
+      map((key: Buffer) => crypto.createCipheriv(this.ALGORITHM, key, iv)),
       mergeMap((cipher: stream.Transform) => this.cipherString(cipher, decrypted, 'utf8', 'hex', PREFIX))
     );
   }
@@ -25,7 +27,7 @@ export class CryptoService {
   encryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void> {
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
-      map((key: Buffer) => crypto.createCipheriv(ALGORITHM, key, iv)),
+      map((key: Buffer) => crypto.createCipheriv(this.ALGORITHM, key, iv)),
       mergeMap((cipher: stream.Transform) => this.cipherStream(cipher, input, output))
     );
   }
@@ -34,7 +36,7 @@ export class CryptoService {
     const reg = new RegExp(`^${PREFIX}`);
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
-      map((key: Buffer) => crypto.createDecipheriv(ALGORITHM, key, iv)),
+      map((key: Buffer) => crypto.createDecipheriv(this.ALGORITHM, key, iv)),
       mergeMap((cipher: stream.Transform) => this.cipherString(cipher, encrypted.replace(reg, ''), 'hex', 'utf8'))
     );
   }
@@ -42,7 +44,7 @@ export class CryptoService {
   decryptStream(input: NodeJS.ReadableStream, output: NodeJS.WritableStream): Observable<void> {
     const iv = Buffer.alloc(16, 0);
     return this.getKey().pipe(
-      map((key: Buffer) => crypto.createDecipheriv(ALGORITHM, key, iv)),
+      map((key: Buffer) => crypto.createDecipheriv(this.ALGORITHM, key, iv)),
       mergeMap((cipher: stream.Transform) => this.cipherStream(cipher, input, output))
     );
   }
@@ -76,9 +78,13 @@ export class CryptoService {
   }
 
   private getKey(): Observable<Buffer> {
-    return bindCallback<BinaryLike, BinaryLike, number, ScryptOptions, Error, Buffer>(crypto.scrypt).call(crypto, this.secret, 'salt', 24, null).pipe(
+    return bindCallback<BinaryLike, BinaryLike, number, ScryptOptions, Error, Buffer>(crypto.scrypt).call(crypto, this.SECRET, 'salt', 24, null).pipe(
       mergeMap(([error, buffer]: [Error, Buffer]) => !!error ? throwError(error) : of(buffer)),
     );
+  }
+
+  isAlgorithmSupported(algorithm: string) {
+    return crypto.getCiphers().includes(algorithm);
   }
 
 }

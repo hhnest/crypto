@@ -4,13 +4,16 @@ import * as stream from 'stream';
 import {PassThrough} from 'stream';
 import {fromPromise} from 'rxjs/internal-compatibility';
 import DoneCallback = jest.DoneCallback;
+import {CryptoModule} from './crypto.module';
 
-describe('CipherService', () => {
+describe('CryptoService', () => {
   let cryptoService: CryptoService;
 
   beforeEach((done: DoneCallback) => {
     fromPromise(Test.createTestingModule({
-      providers: [CryptoService, {provide: 'HHNESTJS_CRYPTO_SECRET', useValue: 'dséfkjasdlkjflsadkjflkj'}],
+      imports: [
+        CryptoModule.forRoot('dséfkjasdlkjflsadkjflkj', {algorithm: 'aes-192-cbc'})
+      ]
     }).compile()).subscribe((moduleRef: TestingModule) => {
       cryptoService = moduleRef.get<CryptoService>(CryptoService);
       done();
