@@ -5,6 +5,7 @@
 # @hhnest/crypto 
 
 ![Build](https://github.com/hhnest/crypto/workflows/Build/badge.svg)
+[![codecov](https://codecov.io/gh/hhnest/crypto/branch/master/graph/badge.svg)](https://codecov.io/gh/hhnest/crypto)
 
 ## Description
 
